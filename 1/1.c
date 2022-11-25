@@ -2,6 +2,20 @@
 #include <string.h>
 #include <stdlib.h>
 
+
+// Definitions
+int compute_floor(char * input[]) {
+    int floor = 0;
+    for(int i = 0; i < strlen(input); i++) {
+	switch(*input[i]) {
+	    case '(': floor++; break;
+	    case ')': floor--; break;
+	    default: break;
+        }
+    }
+    return floor;
+}
+
 int main() {
     FILE* fp;
     char input[10000];
@@ -13,14 +27,8 @@ int main() {
     printf("input: %s", input);
     fclose(fp);
 
-    int floor = 0;
-
-    for(int i = 0; i < strlen(input); i++) {
-        printf("%c", input[i]);
-        if(input[i] == "\0") { break; }
-        if(input[i] == '(') { floor = floor + 1; }
-        else { floor = floor - 1; }
-    }
+    int floor = compute_floor("(())(((");
     printf("He is at floor %d", floor);
     return 0;
 }
+
