@@ -4,16 +4,31 @@
 
 
 // Definitions
-int compute_floor(char * input[]) {
+int compute_floor(const char input[]) {
     int floor = 0;
     for(int i = 0; i < strlen(input); i++) {
-	switch(*input[i]) {
+	switch(input[i]) {
 	    case '(': floor++; break;
 	    case ')': floor--; break;
 	    default: break;
         }
     }
     return floor;
+}
+
+int compute_char_at_basement(const char input[]) {
+    int floor = 0;
+    for(int i = 0; i < strlen(input); i++) {
+        switch(input[i]){
+            case '(': floor++; break;
+            case ')': floor--; break;
+            default: break;
+        }
+
+        if(floor == -1) {
+            return i+1; // position, starting from 1
+        }
+    }
 }
 
 int main() {
@@ -27,8 +42,11 @@ int main() {
     printf("input: %s", input);
     fclose(fp);
 
-    int floor = compute_floor("(())(((");
-    printf("He is at floor %d", floor);
+    int floor = compute_floor(input);
+    printf("He is at floor %d\n", floor);
+
+    int position = compute_char_at_basement(input);
+    printf("He reaches the basement at position %d", position);
     return 0;
 }
 
